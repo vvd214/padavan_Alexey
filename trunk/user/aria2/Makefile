@@ -51,7 +51,8 @@ clean:
 romfs:
 ifeq ($(CONFIG_FIRMWARE_INCLUDE_ARIA_WEB_CONTROL),y)
 	wget -O ariang.zip https://github.com/mayswind/AriaNg/releases/download/1.2.3/AriaNg-1.2.3-AllInOne.zip
-	unzip ariang.zip -d ariaweb
+	unzip -o ariang.zip -d ariaweb
+	rm -f ariaweb/LICENSE
 	cp -rf ariaweb $(INSTALLDIR)/www
 	cd $(INSTALLDIR)/www/ariaweb && ln -sf /mnt/aria/config/configuration.js configuration.js
 endif

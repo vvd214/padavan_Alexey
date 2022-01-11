@@ -45,10 +45,13 @@ clean:
 	if [ -f $(SRC_NAME)/Makefile ] ; then \
 		$(MAKE) -C $(SRC_NAME) distclean ; \
 	fi ; \
-	rm -f config_done
+	rm -f config_done ariang.zip
+	rm -rf ariaweb
 
 romfs:
 ifeq ($(CONFIG_FIRMWARE_INCLUDE_ARIA_WEB_CONTROL),y)
+	wget -O ariang.zip https://github.com/mayswind/AriaNg/releases/download/1.2.3/AriaNg-1.2.3-AllInOne.zip
+	unzip ariang.zip -d ariaweb
 	cp -rf ariaweb $(INSTALLDIR)/www
 	cd $(INSTALLDIR)/www/ariaweb && ln -sf /mnt/aria/config/configuration.js configuration.js
 endif

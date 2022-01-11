@@ -55,9 +55,10 @@ func_start()
 
 ### XML-RPC
 rpc-listen-all=true
+rpc-allow-origin-all=true
 #rpc-secret=
-rpc-user=$aria_user
-rpc-passwd=$aria_pass
+#rpc-user=$aria_user
+#rpc-passwd=$aria_pass
 
 ### Common
 dir=$DIR_DL1

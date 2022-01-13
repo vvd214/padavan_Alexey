@@ -3871,22 +3871,7 @@ ej_available_disk_names_and_sizes(int eid, webs_t wp, int argc, char **argv)
 static int
 adguard_action_hook(int eid, webs_t wp, int argc, char **argv)
 {
-	char **action_mode = websGetVar(wp, "action_mode", NULL);
-
-	if (!strcmp(*action_mode, " Apply ")){
-		char **adguard_action = websGetVar(wp, "adguard_action", NULL);
-		if (!strcmp(*adguard_action, "On")){
-			nvram_set("agh_enabled", "1");
-			nvram_commit();
-			notify_rc(RCN_RESTART_AGH);
-		}
-		else if (!strcmp(*adguard_action, "Off")){
-			nvram_set("agh_enabled", "0");
-			nvram_commit();
-			notify_rc("stop_adguard");
-		}
-	}
-	return 0;
+	char *
 }
 #endif
 

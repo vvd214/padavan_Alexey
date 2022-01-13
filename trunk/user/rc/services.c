@@ -390,6 +390,39 @@ restart_dnscrypt(void)
 }
 #endif
 
+#if defined(APP_ADGUARD)
+int
+is_adguard_run(void)
+{
+	if (check_if_file_exist("/usr/bin/AdGuardHome"))
+	{
+		if (pids("AdGuardHome"))
+			return 1;
+	}
+	return 0;
+}
+
+void 
+stop_adguard(void)
+{
+	eval("/usr/bin/adguardhome.sh", "stop");
+}
+
+void 
+start_adguard(void)
+{
+	if (nvram_get_int("agh_enabled") == 1)
+		eval("/usr/bin/adguardhome.sh", "start");
+}
+
+void
+restart_adguard(void)
+{
+	stop_adguard();
+	start_adguard();
+}
+#endif
+
 void
 start_httpd(int restart_fw)
 {
@@ -587,6 +620,10 @@ start_services_once(int is_ap_mode)
 	start_vpn_server();
 	start_watchdog();
 	start_infosvr();
+
+#if defined(APP_ADGUARD)
+	start_adguard();
+#endif 
 
 	if (!is_ap_mode) {
 		if (!is_upnp_run())

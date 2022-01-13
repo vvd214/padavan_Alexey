@@ -18,6 +18,7 @@ libshared.so: $(OBJS)
 	$(LD) -shared -o $@ $^
 
 romfs:
+	echo "CFLAGS = $(CFLAGS)"
 	$(ROMFSINST) -S /lib/libshared.so
 
 clean:

@@ -73,6 +73,10 @@ SAMBA_ENABLED=y
 endif
 endif
 
+ifeq ($(CONFIG_FIRMWARE_INCLUDE_AGH),y)
+APP_ADGUARD=y
+endif
+
 dir_y =
 dir_n =
 dir_  =

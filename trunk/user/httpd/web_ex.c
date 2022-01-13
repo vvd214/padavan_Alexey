@@ -2110,6 +2110,11 @@ ej_firmware_caps_hook(int eid, webs_t wp, int argc, char **argv)
 #else
 	int found_support_zram = 0;
 #endif
+#if defined(APP_ADGUARD)
+	int found_app_agh = 1;
+#else
+	int found_app_agh = 0;
+#endif
 #if defined(USE_IPV6)
 	int has_ipv6 = 1;
 #else
@@ -2263,7 +2268,8 @@ ej_firmware_caps_hook(int eid, webs_t wp, int argc, char **argv)
 		"function found_app_dnscrypt() { return %d;}\n"
 		"function found_support_wpad() { return %d;}\n"
 		"function found_support_zram() { return %d;}\n"
-		"function found_app_xupnpd() { return %d;}\n",
+		"function found_app_xupnpd() { return %d;}\n"
+		"function found_app_agh() { return %d;}\n",
 		found_utl_hdparm,
 		found_app_ovpn,
 		found_app_dlna,
@@ -2283,7 +2289,8 @@ ej_firmware_caps_hook(int eid, webs_t wp, int argc, char **argv)
 		found_app_dnscrypt,
 		found_support_wpad,
 		found_support_zram,
-		found_app_xupnpd
+		found_app_xupnpd,
+		found_app_agh
 	);
 
 	websWrite(wp,
@@ -3860,6 +3867,29 @@ ej_available_disk_names_and_sizes(int eid, webs_t wp, int argc, char **argv)
 }
 #endif
 
+#if defined (APP_ADGUARD)
+static int
+adguard_action_hook(int eid, webs_t wp, int argc, char **argv)
+{
+	char **action_mode = websGetVar(wp, "action_mode", NULL);
+
+	if (!strcmp(*action_mode, " Apply ")){
+		char **adguard_action = websGetVar(wp, "adguard_action", NULL);
+		if (!strcmp(*adguard_action, "On")){
+			nvram_set("agh_enabled", "1");
+			nvram_commit();
+			notify_rc(RCN_RESTART_AGH);
+		}
+		else if (!strcmp(*adguard_action, "Off")){
+			nvram_set("agh_enabled", "0");
+			nvram_commit();
+			notify_rc("stop_adguard");
+		}
+	}
+	return 0;
+}
+#endif
+
 struct ej_handler ej_handlers[] =
 {
 	{ "nvram_get_x", ej_nvram_get_x},
@@ -3930,6 +3960,9 @@ struct ej_handler ej_handlers[] =
 	{ "delete_sharedfolder", ej_delete_sharedfolder},
 	{ "modify_sharedfolder", ej_modify_sharedfolder},
 	{ "set_share_mode", ej_set_share_mode},
+#endif
+#if defined (APP_ADGUARD)
+	{ "adguard_action", adguard_action_hook},
 #endif
 	{ "openssl_util_hook", openssl_util_hook},
 	{ "openvpn_srv_cert_hook", openvpn_srv_cert_hook},

@@ -1255,6 +1255,16 @@ handle_notifications(void)
 			restart_dnscrypt();
 		}
 #endif
+#if defined(APP_ADGUARD)
+		else if (strcmp(entry->d_name, RCN_RESTART_AGH) == 0)
+		{
+			restart_adguard();
+		}
+		else if (strcmp(entry->d_name, "stop_adguard") == 0)
+		{
+			stop_adguard();
+		}
+#endif
 #if defined(APP_SMBD) || defined(APP_NMBD)
 		else if (strcmp(entry->d_name, RCN_RESTART_NMBD) == 0)
 		{

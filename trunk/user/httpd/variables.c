@@ -881,6 +881,14 @@
 			{0,0,0,0}
 		};
 
+	struct variable variables_ExtraApps[] = {
+		#if defined(APP_ADGUARD)
+			{"agh_enabled", "", NULL, EVM_RESTART_AGH},
+			{"adguard_replace_dns", "", NULL, EVM_RESTART_AGH},
+			{0,0,0,0}
+		#endif
+	};
+
 	struct svcLink svcLinks[] = {
 		{"General",			variables_General},
 		{"Storage",			variables_Storage},
@@ -900,6 +908,7 @@
 		{"WLANAuthentication11a",	variables_WLANAuthentication11a},
 		{"WLANAuthentication11b",	variables_WLANAuthentication11b},
 		{"LANGUAGE",			variables_Language},
+		{"ExtraApplications", 	variables_ExtraApps},
 		{0,0}
 	};
 
@@ -974,10 +983,15 @@
 		{EVM_RESTART_ARIA,		EVT_RESTART_ARIA,		RCN_RESTART_ARIA,	EVM_RESTART_FIREWALL},
 #endif
 #endif
+#if defined(APP_ADGUARD)
+		{EVM_RESTART_AGH,		EVT_RESTART_AGH,		RCN_RESTART_AGH,	0},
+#endif
 #if defined(APP_SMBD) || defined(APP_NMBD)
 		{EVM_RESTART_NMBD,		EVT_RESTART_NMBD,		RCN_RESTART_NMBD,	0},
 #endif
 		{EVM_RESTART_FIREWALL,		EVT_RESTART_FIREWALL,		RCN_RESTART_FIREWALL,	0},
 		{0,0,0,0}
 	};
+
+
 

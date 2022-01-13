@@ -540,6 +540,12 @@ void stop_dnscrypt(void);
 void start_dnscrypt(void);
 void restart_dnscrypt(void);
 #endif
+#if defined(APP_ADGUARD)
+int is_adguard_run(void);
+void stop_adguard(void);
+void start_adguard(void);
+void restart_adguard(void);
+#endif
 
 /* services_ex.c */
 int fill_dnsmasq_servers(void);

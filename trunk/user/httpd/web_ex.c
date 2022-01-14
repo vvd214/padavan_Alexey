@@ -2115,6 +2115,11 @@ ej_firmware_caps_hook(int eid, webs_t wp, int argc, char **argv)
 #else
 	int found_app_agh = 0;
 #endif
+#if defined(SQM_WEBUI)
+	int found_sqm_webui = 1;
+#else
+	int found_sqm_webui = 0;
+#endif
 #if defined(USE_IPV6)
 	int has_ipv6 = 1;
 #else
@@ -2269,7 +2274,8 @@ ej_firmware_caps_hook(int eid, webs_t wp, int argc, char **argv)
 		"function found_support_wpad() { return %d;}\n"
 		"function found_support_zram() { return %d;}\n"
 		"function found_app_xupnpd() { return %d;}\n"
-		"function found_app_agh() { return %d;}\n",
+		"function found_app_agh() { return %d;}\n"
+		"function found_sqm_webui() { return %d;}\n",
 		found_utl_hdparm,
 		found_app_ovpn,
 		found_app_dlna,
@@ -2290,7 +2296,8 @@ ej_firmware_caps_hook(int eid, webs_t wp, int argc, char **argv)
 		found_support_wpad,
 		found_support_zram,
 		found_app_xupnpd,
-		found_app_agh
+		found_app_agh,
+		found_sqm_webui
 	);
 
 	websWrite(wp,
@@ -3867,14 +3874,6 @@ ej_available_disk_names_and_sizes(int eid, webs_t wp, int argc, char **argv)
 }
 #endif
 
-#if defined (APP_ADGUARD)
-static int
-adguard_action_hook(int eid, webs_t wp, int argc, char **argv)
-{
-	char *
-}
-#endif
-
 struct ej_handler ej_handlers[] =
 {
 	{ "nvram_get_x", ej_nvram_get_x},
@@ -3945,9 +3944,6 @@ struct ej_handler ej_handlers[] =
 	{ "delete_sharedfolder", ej_delete_sharedfolder},
 	{ "modify_sharedfolder", ej_modify_sharedfolder},
 	{ "set_share_mode", ej_set_share_mode},
-#endif
-#if defined (APP_ADGUARD)
-	{ "adguard_action", adguard_action_hook},
 #endif
 	{ "openssl_util_hook", openssl_util_hook},
 	{ "openvpn_srv_cert_hook", openvpn_srv_cert_hook},

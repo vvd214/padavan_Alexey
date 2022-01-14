@@ -885,8 +885,14 @@
 		#if defined(APP_ADGUARD)
 			{"agh_enabled", "", NULL, EVM_RESTART_AGH},
 			{"adguard_replace_dns", "", NULL, EVM_RESTART_AGH},
-			{0,0,0,0}
 		#endif
+		#if defined(SQM_WEBUI)
+			{ "sqm_enabled", "", NULL, EVM_RESTART_SQM  },
+			{ "sqm_interface", "", NULL, EVM_RESTART_SQM  },
+			{ "sqm_upload_speed", "", NULL, EVM_RESTART_SQM  },
+			{ "sqm_download_speed", "", NULL, EVM_RESTART_SQM  },
+		#endif
+			{0,0,0,0}
 	};
 
 	struct svcLink svcLinks[] = {
@@ -985,6 +991,9 @@
 #endif
 #if defined(APP_ADGUARD)
 		{EVM_RESTART_AGH,		EVT_RESTART_AGH,		RCN_RESTART_AGH,	0},
+#endif
+#if defined(SQM_WEBUI)
+		{EVM_RESTART_SQM,		EVT_RESTART_SQM,		RCN_RESTART_SQM,	0},
 #endif
 #if defined(APP_SMBD) || defined(APP_NMBD)
 		{EVM_RESTART_NMBD,		EVT_RESTART_NMBD,		RCN_RESTART_NMBD,	0},

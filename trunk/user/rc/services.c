@@ -423,6 +423,32 @@ restart_adguard(void)
 }
 #endif
 
+#if defined(SQM_WEBUI)
+void 
+stop_sqm(void)
+{
+	char *sqm_interface = nvram_get("sqm_interface");
+	eval("/usr/bin/sqm.sh", sqm_interface, "clear");
+}
+void 
+start_sqm(void)
+{
+	if (nvram_get_int("sqm_enabled") == 1){
+		char* sqm_interface = nvram_get("sqm_interface");
+		char* sqm_upload_speed = nvram_get("sqm_upload_speed");
+		char* sqm_download_speed = nvram_get("sqm_download_speed");
+		eval("/usr/bin/sqm.sh", sqm_interface, sqm_download_speed, sqm_upload_speed);
+	}
+}
+void
+restart_sqm(void)
+{
+	stop_sqm();
+	if (nvram_get_int("sqm_enabled") == 1)
+		start_sqm();
+}
+#endif
+
 void
 start_httpd(int restart_fw)
 {
@@ -633,6 +659,10 @@ start_services_once(int is_ap_mode)
 			br_set_stp(IFNAME_BR, 1);
 			br_set_fd(IFNAME_BR, 15);
 		}
+		#if defined(SQM_WEBUI)
+		start_sqm();
+		#endif
+
 	} else {
 		start_udpxy(IFNAME_BR);
 #if defined(APP_XUPNPD)

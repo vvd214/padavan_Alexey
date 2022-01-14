@@ -387,6 +387,10 @@ tabtitle[9] = new Array("", "<#menu5_7_2#>", "<#menu5_7_3#>", "<#menu5_7_5#>", "
 if (found_app_agh()) {
 	tabtitle[10] = new Array("", "<#menu5_13_1#>")
 }
+if (found_sqm_webui()) {
+	tabtitle[11] = new Array("", "<#menu5_14_1#>")
+}
+
 
 //Level 3 Tab title
 var tablink = new Array(10);
@@ -403,12 +407,20 @@ tablink[9] = new Array("", "Main_LogStatus_Content.asp", "Main_DHCPStatus_Conten
 if (found_app_agh()) {
 	tablink[10] = new Array("", "Advanced_AdGuardHome_Content.asp");
 }
+if (found_sqm_webui()) {
+	tablink[11] = new Array("", "Advanced_SQM_Content.asp");
+}
+
 //Level 2 Menu
 menuL2_title = new Array("", "<#menu5_11#>", "<#menu5_12#>", "<#menu5_2#>", "<#menu5_3#>", "<#menu5_5#>", "<#menu5_4#>", "<#menu5_6#>", "<#menu5_10#>", "<#menu5_9#>", "<#menu5_7#>");
 menuL2_link = new Array("", tablink[0][1], tablink[1][1], tablink[2][1], tablink[3][1], tablink[4][1], tablink[5][1], tablink[6][1], tablink[7][1], tablink[8][1], tablink[9][1]);
 if (found_app_agh()) {
 	menuL2_title.push("<#menu5_13#>");
 	menuL2_link.push(tablink[10][1]);
+}
+if (found_sqm_webui()) {
+	menuL2_title.push("<#menu5_14#>");
+	menuL2_link.push(tablink[11][1]);
 }
 
 //Level 1 Menu in Gateway, Router mode

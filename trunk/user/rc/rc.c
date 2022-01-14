@@ -1265,6 +1265,13 @@ handle_notifications(void)
 			stop_adguard();
 		}
 #endif
+#if defined(SQM_WEBUI)
+		else if (strcmp(entry->d_name, RCN_RESTART_SQM) == 0)
+		{
+			restart_sqm();
+		}
+#endif
+
 #if defined(APP_SMBD) || defined(APP_NMBD)
 		else if (strcmp(entry->d_name, RCN_RESTART_NMBD) == 0)
 		{

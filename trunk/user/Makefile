@@ -76,6 +76,9 @@ endif
 ifeq ($(CONFIG_FIRMWARE_INCLUDE_AGH),y)
 APP_ADGUARD=y
 endif
+ifeq ($(CONFIG_FIRMWARE_SQM_UI),y)
+APP_SQM_UI=y
+endif
 
 dir_y =
 dir_n =
@@ -154,6 +157,9 @@ dir_$(CONFIG_FIRMWARE_INCLUDE_LPRD)		+= LPRng
 dir_$(CONFIG_FIRMWARE_INCLUDE_U2EC)		+= u2ec
 endif
 
+dir_$(CONFIG_FIRMWARE_INCLUDE_AGH)		+= AdGuardHome
+dir_$(CONFIG_FIRMWARE_SQM_UI)			+= sqm_webui
+
 ifeq ($(STORAGE_ENABLED),y)
 dir_$(CONFIG_FIRMWARE_INCLUDE_NFSD)		+= nfs-utils
 ifneq (,$(filter y,$(CONFIG_FIRMWARE_INCLUDE_NFSD) $(CONFIG_FIRMWARE_INCLUDE_NFSC)))
@@ -171,7 +177,6 @@ dir_$(CONFIG_FIRMWARE_INCLUDE_MINIDLNA)		+= minidlna
 dir_$(CONFIG_FIRMWARE_INCLUDE_FIREFLY)		+= firefly
 dir_$(CONFIG_FIRMWARE_INCLUDE_TRANSMISSION)	+= transmission
 dir_$(CONFIG_FIRMWARE_INCLUDE_ARIA)		+= aria2
-dir_$(CONFIG_FIRMWARE_INCLUDE_AGH)		+= AdGuardHome
 endif
 
 ifdef CONFIG_MTD_UBI

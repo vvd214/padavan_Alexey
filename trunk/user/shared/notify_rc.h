@@ -45,6 +45,7 @@
 #define RCN_RESTART_PRIVOXY		"restart_privoxy"
 #define RCN_RESTART_DNSCRYPT		"restart_dnscrypt"
 #define RCN_RESTART_AGH         "restart_agh"
+#define RCN_RESTART_SQM        "restart_sqm"
 #define RCN_RESTART_WINS		"restart_wins"
 #define RCN_RESTART_LLTD		"restart_lltd"
 #define RCN_RESTART_ADSC		"restart_adsc"

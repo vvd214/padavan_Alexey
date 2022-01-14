@@ -546,6 +546,11 @@ void stop_adguard(void);
 void start_adguard(void);
 void restart_adguard(void);
 #endif
+#if defined(SQM_WEBUI)
+void stop_sqm(void);
+void start_sqm(void);
+void restart_sqm(void);
+#endif
 
 /* services_ex.c */
 int fill_dnsmasq_servers(void);

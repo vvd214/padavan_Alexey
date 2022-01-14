@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title><#Web_Title#> - AdGuardHome</title>
+<title><#Web_Title#> - <#menu5_13_1#></title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="-1">
@@ -113,11 +113,11 @@ function button_AdGuardHome_wan_port(){
                 <div class="row-fluid">
                     <div class="span12">
                         <div class="box well grad_colour_dark_blue">
-                            <h2 class="box_head round_top">AdGuardHome</h2>
+                            <h2 class="box_head round_top"><#menu5_13_1#></h2>
                             <div class="round_bottom">
                                 <div class="row-fluid">
                                     <div id="tabMenu" class="submenuBlock"></div>
-                                    <div class="alert alert-info" style="margin: 10px;">Network-wide ads & trackers blocking DNS server <a href="https://adguard.com/zh_cn/adguard-home/overview.html" target="blank">AdGuard Home</a>
+                                    <div class="alert alert-info" style="margin: 10px;"> <#AdGuardHome_Desc#> <a href="https://adguard.com/en/adguard-home/overview.html" target="blank">AdGuard Home</a>
                                     <span style="color:#FF0000;" class=""></span></div>
 
                                     <table width="100%" align="center" cellpadding="4" cellspacing="0" class="table">
@@ -125,7 +125,7 @@ function button_AdGuardHome_wan_port(){
                                             <th colspan="4" style="background-color: #E3E3E3;">Status</th>
                                         </tr>
                                         <tr id="AdGuardHome_enable_tr" >
-                                            <th width="30%">AdGuardHome Enabled</th>
+                                            <th width="30%"><#AdGuardHome_Toggle#></th>
                                             <td>
                                                     <div class="main_itoggle">
                                                     <div id="agh_enabled_on_of">
@@ -138,7 +138,7 @@ function button_AdGuardHome_wan_port(){
                                                 </div>
                                             </td>
                                             <td colspan="2" style="border-top: 0 none;">
-												<input class="btn btn-success" style="" type="button" value="Web Inteface" onclick="button_AdGuardHome_wan_port()" tabindex="24">
+												<input class="btn btn-success" style="" type="button" value="<#AdGuardHome_WebIf#>" onclick="button_AdGuardHome_wan_port()" tabindex="24">
 											</td>
                                         </tr>
                                         <tr>

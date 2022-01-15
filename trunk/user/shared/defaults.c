@@ -608,6 +608,8 @@ struct nvram_pair router_defaults[] = {
 	{ "crond_log", "0" },
 #if defined(APP_ADGUARD)
 	{ "agh_enabled" , "0"},
+	{ "adguard_replace_dns", "0" },
+	{ "adguard_port", "3000" },
 #endif
 #if defined(SQM_WEBUI)
 	{ "sqm_enabled", "0" },

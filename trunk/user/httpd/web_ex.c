@@ -3874,6 +3874,15 @@ ej_available_disk_names_and_sizes(int eid, webs_t wp, int argc, char **argv)
 }
 #endif
 
+#if defined (APP_ADGUARD)
+static int
+adguard_action_hook(int eid, webs_t wp, int argc, char **argv)
+{
+	char *action = websGetVar(wp, "getport_action", "");
+	
+}
+#endif
+
 struct ej_handler ej_handlers[] =
 {
 	{ "nvram_get_x", ej_nvram_get_x},
@@ -3944,6 +3953,9 @@ struct ej_handler ej_handlers[] =
 	{ "delete_sharedfolder", ej_delete_sharedfolder},
 	{ "modify_sharedfolder", ej_modify_sharedfolder},
 	{ "set_share_mode", ej_set_share_mode},
+#endif
+#if defined(APP_ADGUARD)
+	{ "adguard_action", adguard_action_hook},
 #endif
 	{ "openssl_util_hook", openssl_util_hook},
 	{ "openvpn_srv_cert_hook", openvpn_srv_cert_hook},

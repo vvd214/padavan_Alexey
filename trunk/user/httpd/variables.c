@@ -885,6 +885,7 @@
 		#if defined(APP_ADGUARD)
 			{"agh_enabled", "", NULL, EVM_RESTART_AGH},
 			{"adguard_replace_dns", "", NULL, EVM_RESTART_AGH},
+			{"adguard_port", "", NULL, EVM_RESTART_AGH},
 		#endif
 		#if defined(SQM_WEBUI)
 			{ "sqm_enabled", "", NULL, EVM_RESTART_SQM  },

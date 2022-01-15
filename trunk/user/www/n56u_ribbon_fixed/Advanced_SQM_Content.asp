@@ -24,7 +24,8 @@
 var $j = jQuery.noConflict();
 
 $j(document).ready(function() {
-    init_itoggle('sqm_enabled');
+    init_itoggle('sqm_enabled', change_sqm_enabled);
+    change_sqm_enabled();
 });
 
 </script>
@@ -58,10 +59,11 @@ function change_sqm_enabled(){
     var v = document.form.sqm_enabled[0].checked;
     showhide_div("sqm_download_speed", v);
     showhide_div("sqm_upload_speed", v);
+    showhide_div("sqm_interface", v);
 }
 
 function validForm(){
-    if (!document.form.sqm_enabled.checked) {
+    if (!document.form.sqm_enabled[0].checked) {
         return true;
     }
 
@@ -74,8 +76,17 @@ function validForm(){
         return false;
     }
 
-    if (upload_speed.isInteger() == false || download_speed.isInteger() == false) {
-        alert("Please enter a valid integer for upload and download speed.");
+    if (!isNaN(upload_speed) || !isNaN(download_speed)) {
+        var ul = Number.parseFloat(upload_speed);
+        var dl = Number.parseFloat(download_speed);
+        if (!Number.isInteger(ul) || !Number.isInteger(dl)) {
+            alert("Please enter a valid value.");
+            return false;
+        }
+    }
+    else 
+    {
+        alert("Please enter a valid value.");
         return false;
     }
 
@@ -147,7 +158,7 @@ function validForm(){
                                         <tr>
                                             <th colspan="4" style="background-color: #E3E3E3;">Status</th>
                                         </tr>
-                                        <tr id="sqm_enable_tr" > <th width="30%"><#SQM_Toggle#></th>
+                                        <tr id="sqm_enable_tr" > <th width="50%"><#SQM_Toggle#></th>
                                             <td>
                                                     <div class="main_itoggle">
                                                     <div id="sqm_enabled_on_of">

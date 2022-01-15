@@ -23,6 +23,21 @@ func_start()
 
 	echo -n "Starting $SVC_NAME:."
 	
+	replace_dnsmasq=`nvram get adguard_replace_dns`
+	
+	if [ $replace_dnsmasq -eq 1 ] ; then
+		if grep -q "^#port=0$" /etc/storage/dnsmasq/dnsmasq.conf; then
+			sed -i '/port=0/s/^#//g' /etc/storage/dnsmasq/dnsmasq.conf
+		else
+			if grep -q "^port=0$" /etc/storage/dnsmasq/dnsmasq.conf; then
+				true
+			else
+				echo "port=0" >> /etc/storage/dnsmasq/dnsmasq.conf
+			fi
+		fi
+		killall dnsmasq
+	fi
+
 	if [ ! -d "${WORK_DIR}" ] ; then
 		mkdir -p "${WORK_DIR}"
 	fi
@@ -31,8 +46,10 @@ func_start()
 		chmod 777 "${WORK_DIR}"
 		svc_user=" -c nobody"
 	fi
+	adg_port=`nvram get adguard_port`
+	lan_ipaddr=`nvram get lan_ipaddr`
 
-	start-stop-daemon -S -b -N $SVC_PRIORITY$svc_user -x $SVC_PATH -- -w "$WORK_DIR" -c "$DIR_CONF" -l "$LOG_FILE"
+	start-stop-daemon -S -b -N $SVC_PRIORITY$svc_user -x $SVC_PATH -- -w "$WORK_DIR" -c "$DIR_CONF" -l "$LOG_FILE" -h "$lan_ipaddr" -p "$adg_port"
 	
 	if [ $? -eq 0 ] ; then
 		echo "[  OK  ]"
@@ -71,6 +88,14 @@ func_stop()
 		logger -t "$SVC_NAME" "Cannot stop: Timeout reached! Force killed."
 	else
 		echo "[  OK  ]"
+	fi
+
+	restart_dnsmasq=`nvram get adguard_replace_dns`
+	if [ $restart_dnsmasq -eq 1 ] ; then
+		if grep -q "^port=0$" /etc/storage/dnsmasq/dnsmasq.conf; then
+			sed -i '/port=0/s/^/#/g' /etc/storage/dnsmasq/dnsmasq.conf
+		fi
+		killall dnsmasq
 	fi
 }
 

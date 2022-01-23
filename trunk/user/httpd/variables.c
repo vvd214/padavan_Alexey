@@ -893,6 +893,10 @@
 			{ "sqm_upload_speed", "", NULL, EVM_RESTART_SQM  },
 			{ "sqm_download_speed", "", NULL, EVM_RESTART_SQM  },
 		#endif
+		#if defined(APP_FILEBROWSER)
+			{ "filebrowser_enabled", "", NULL, EVM_RESTART_FILEBROWSER },
+			{ "filebrowser_port", "", NULL, EVM_RESTART_FILEBROWSER },
+		#endif
 			{0,0,0,0}
 	};
 
@@ -988,6 +992,9 @@
 #endif
 #if defined(APP_ARIA)
 		{EVM_RESTART_ARIA,		EVT_RESTART_ARIA,		RCN_RESTART_ARIA,	EVM_RESTART_FIREWALL},
+#endif
+#if defined(APP_FILEBROWSER)
+		{EVM_RESTART_FILEBROWSER,			EVT_RESTART_FILEBROWSER,			RCN_RESTART_FILEBROWSER,		0},
 #endif
 #endif
 #if defined(APP_ADGUARD)

@@ -122,6 +122,7 @@ ifneq ($(STORAGE_ENABLED),y)
 	rm -f $(INSTALLDIR)/www/Advanced_AiDisk_ftp.asp
 	rm -f $(INSTALLDIR)/www/Advanced_AiDisk_others.asp
 	rm -f $(INSTALLDIR)/www/Advanced_AiDisk_samba.asp
+	rm -f $(INSTALLDIR)/www/Advanced_AiDisk_FileBrowser.asp
 	rm -f $(INSTALLDIR)/www/aidisk.asp
 	rm -f $(INSTALLDIR)/www/disk_folder_tree.js
 	rm -f $(INSTALLDIR)/www/device-map/disk.asp
@@ -129,6 +130,18 @@ ifneq ($(STORAGE_ENABLED),y)
 	rm -rf $(INSTALLDIR)/www/aidisk
 	rm -rf $(INSTALLDIR)/www/images/AiDisk
 	rm -rf $(INSTALLDIR)/www/images/Tree
+endif
+
+ifneq ($(CONFIG_FIRMWARE_INCLUDE_FILEBROWSER),y)
+	rm -f $(INSTALLDIR)/www/Advanced_AiDisk_FileBrowser.asp
+endif
+
+ifneq ($(CONFIG_FIRMWARE_INCLUDE_AGH),y)
+	rm -f $(INSTALLDIR)/www/Advanced_AdGuardHome_Content.asp
+endif
+
+ifneq ($(CONFIG_FIRMWARE_SQM_UI),y)
+	rm -f $(INSTALLDIR)/www/Advanced_SQM_Content.asp
 endif
 
 clean:

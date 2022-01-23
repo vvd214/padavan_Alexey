@@ -2060,6 +2060,11 @@ ej_firmware_caps_hook(int eid, webs_t wp, int argc, char **argv)
 #else
 	int found_app_ftpd = 0;
 #endif
+#if defined(APP_FILEBROWSER)
+	int found_app_filebrowser = 1;
+#else
+	int found_app_filebrowser = 0;
+#endif
 #if defined(APP_RPL2TP)
 	int found_app_l2tp = 1;
 #else
@@ -2275,7 +2280,8 @@ ej_firmware_caps_hook(int eid, webs_t wp, int argc, char **argv)
 		"function found_support_zram() { return %d;}\n"
 		"function found_app_xupnpd() { return %d;}\n"
 		"function found_app_agh() { return %d;}\n"
-		"function found_sqm_webui() { return %d;}\n",
+		"function found_sqm_webui() { return %d;}\n"
+		"function found_app_filebrowser() { return %d;}\n",
 		found_utl_hdparm,
 		found_app_ovpn,
 		found_app_dlna,
@@ -2297,7 +2303,8 @@ ej_firmware_caps_hook(int eid, webs_t wp, int argc, char **argv)
 		found_support_zram,
 		found_app_xupnpd,
 		found_app_agh,
-		found_sqm_webui
+		found_sqm_webui,
+		found_app_filebrowser
 	);
 
 	websWrite(wp,

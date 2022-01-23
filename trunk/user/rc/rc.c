@@ -1221,6 +1221,12 @@ handle_notifications(void)
 			restart_aria();
 		}
 #endif
+#if defined(APP_FILEBROWSER)
+		else if (strcmp(entry->d_name, RCN_RESTART_FILEBROWSER) == 0)
+		{
+			restart_filebrowser();
+		}
+#endif
 #endif
 		else if (strcmp(entry->d_name, RCN_RESTART_HTTPD) == 0)
 		{
@@ -1684,6 +1690,11 @@ main(int argc, char **argv)
 		restart_aria();
 	}
 #endif
+#if defined(APP_FILEBROWSER)
+	else if (!strcmp(base, "run_filebrowser")) {
+		restart_filebrowser();
+	}
+#endif
 #if defined(APP_FTPD)
 	else if (!strcmp(base, "stop_ftp")) {
 		stop_ftp();
@@ -1727,6 +1738,11 @@ main(int argc, char **argv)
 #if defined(APP_ARIA)
 	else if (!strcmp(base, "stop_aria")) {
 		stop_aria();
+	}
+#endif
+#if defined(APP_FILEBROWSER)
+	else if (!strcmp(base, "stop_filebrowser")) {
+		stop_filebrowser();
 	}
 #endif
 	else if (!strcmp(base, "start_ddns")) {

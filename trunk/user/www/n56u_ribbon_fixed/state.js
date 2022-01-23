@@ -390,7 +390,9 @@ if (found_app_agh()) {
 if (found_sqm_webui()) {
 	tabtitle[11] = new Array("", "<#menu5_14_1#>")
 }
-
+if (found_app_filebrowser()) {
+	tabtitle[12] = new Array("", "<#menu5_15_1#>")
+}
 
 //Level 3 Tab title
 var tablink = new Array(10);
@@ -410,6 +412,9 @@ if (found_app_agh()) {
 if (found_sqm_webui()) {
 	tablink[11] = new Array("", "Advanced_SQM_Content.asp");
 }
+if (found_app_filebrowser()) {
+	tablink[12] = new Array("", "Advanced_AiDisk_FileBrowser.asp");
+}
 
 //Level 2 Menu
 menuL2_title = new Array("", "<#menu5_11#>", "<#menu5_12#>", "<#menu5_2#>", "<#menu5_3#>", "<#menu5_5#>", "<#menu5_4#>", "<#menu5_6#>", "<#menu5_10#>", "<#menu5_9#>", "<#menu5_7#>");
@@ -421,6 +426,10 @@ if (found_app_agh()) {
 if (found_sqm_webui()) {
 	menuL2_title.push("<#menu5_14#>");
 	menuL2_link.push(tablink[11][1]);
+}
+if (found_app_filebrowser()) {
+	menuL2_title.push("<#menu5_15#>");
+	menuL2_link.push(tablink[12][1]);
 }
 
 //Level 1 Menu in Gateway, Router mode

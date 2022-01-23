@@ -1181,7 +1181,27 @@ void restart_aria(void)
 		restart_firewall();
 }
 #endif
-
+#if defined(APP_FILEBROWSER)
+void
+stop_filebrowser(void)
+{
+	eval("/usr/bin/filebrowser.sh", "stop");
+}
+void
+run_filebrowser(void)
+{
+	if (!nvram_match("filebrowser_enabled", "1"))
+		return;
+	eval("/usr/bin/filebrowser.sh", "start");
+}
+void
+restart_filebrowser(void)
+{
+	stop_filebrowser();
+	if (count_stor_mountpoint())
+		run_filebrowser();
+}
+#endif
 static void
 restore_home_dir(void)
 {
@@ -1364,6 +1384,10 @@ stop_stor_apps(void)
 	need_restart_fw |= is_aria_run();
 	stop_aria();
 #endif
+#if defined (APP_FILEBROWSER)
+	stop_filebrowser();
+#endif
+
 
 	if (need_restart_fw && nvram_match("fw_enable_x", "1"))
 		restart_firewall();
@@ -1398,6 +1422,9 @@ start_stor_apps(void)
 #if defined (APP_ARIA)
 	run_aria();
 	need_restart_fw |= is_aria_run();
+#endif
+#if defined (APP_FILEBROWSER)
+	run_filebrowser();
 #endif
 
 	if (need_restart_fw && nvram_match("fw_enable_x", "1"))

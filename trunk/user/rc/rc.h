@@ -631,6 +631,11 @@ void stop_aria(void);
 void run_aria(void);
 void restart_aria(void);
 #endif
+#if defined (APP_FILEBROWSER)
+void stop_filebrowser(void);
+void run_filebrowser(void);
+void restart_filebrowser(void);
+#endif
 int count_stor_mountpoint(void);
 void umount_stor_path(struct disk_info_t *disks_info, int port, const char *dev_name, int do_spindown);
 void umount_ejected(void);

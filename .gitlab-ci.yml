@@ -1,38 +1,21 @@
-image: ubuntu:focal
+image: justanemo/pdv-buildcontainer:main
 
 stages:
-    - toolchain
-    - config
     - build
 
 variables:
     LC_ALL: 'en_US.UTF-8'
     DEBIAN_FRONTEND: 'noninteractive'
 
-build-toolchain:
-    stage: toolchain
+build-newifid2:
+    stage: build
     before_script:
-        - DEBIAN_FRONTEND=noninteractive apt-get --quiet update --yes
-        - DEBIAN_FRONTEND=noninteractive apt-get --quiet install --yes git build-essential gawk pkg-config gettext automake autoconf autopoint libtool bison flex zlib1g-dev libgmp3-dev libmpfr-dev libmpc-dev texinfo mc libncurses5-dev nano vim autopoint gperf python-docutils help2man libtool-bin libtool-doc unzip 
-    script:
-        - cd toolchain
-        - ./build_toolchain.sh
-        - cd ..
-
-config-device:
-    stage: config
-    needs: ['build-toolchain']
+        - rm -rf toolchain
+        - ln -sf /opt/padavan-ng/toolchain toolchain
     script:
         - cd trunk
         - cp configs/templates/newifi/newifi-d2.config .config
-        - cd ..
-
-build-firmware:
-    stage: build
-    needs: ['config-device']
-    script:
-        - cd trunk
-        - ./build_firmware
+        - ./build_firmware.sh
         - cd ..
     artifacts:
         paths:

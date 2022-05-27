@@ -19,5 +19,5 @@ build-newifid2:
         - cd ..
     artifacts:
         paths:
-            - trunk/images/
+            - trunk/images/*
     

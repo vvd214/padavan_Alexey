@@ -1,3 +1,5 @@
+THISDIR := $(shell pwd)
+VERSION := 0.0.20201118
 SRC_NAME=wireguard-git
 
 CFLAGS +=$(COPT) -ffunction-sections -fdata-sections -fvisibility=hidden
@@ -22,3 +24,5 @@ clean:
 
 romfs:
 	$(ROMFSINST) $(SRC_NAME)/wg /usr/sbin/wg
+	$(ROMFSINST) -S -p +x $(THISDIR)/$(BIN_PREFIX)-$(VERSION) /usr/bin/wireguard
+	$(ROMFSINST) -p +x $(THISDIR)/wireguard.sh /usr/bin/wireguard.sh

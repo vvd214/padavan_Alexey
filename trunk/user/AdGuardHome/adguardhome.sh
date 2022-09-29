@@ -113,6 +113,7 @@ fi
 
 func_start()
 {
+	getconfig
 	if [ -n "`pidof AdGuardHome`" ] ; then
 		return 0
 	fi

@@ -52,14 +52,16 @@ AllowedIPs = 10.127.0.6/32
 
 EEE
 fi
-	(killall wireguard ; sleep 1 ; wireguard wg0  2>/dev/null) && \
-	(ip link show ${IFACE} 2>/dev/null) && \
-	(ip addr add ${ADDR}/${MASK} dev ${IFACE}) && \
-	(wg setconf ${IFACE} $cfg_file) && \
-	(sleep 1) && \
-	(ip link set ${IFACE} up)
 
-ifconfig ${IFACE}
+[ -e /sys/module/wireguard ] `modprobe wireguard`
+!(ip link show ${IFACE} 2>/dev/null) && \
+               (ip link add dev ${IFACE} type wireguard) && \
+               (ip addr add ${ADDR}/${MASK} dev ${IFACE}) && \
+               (wg setconf ${IFACE} ${cfg_file}) && \
+               (sleep 1) && \
+               (ip link set ${IFACE} up) && \
+               (ifconfig ${IFACE} up)
+
 
 echo 1 > /proc/sys/net/ipv4/ip_forward
 echo 0 > /proc/sys/net/ipv4/conf/all/accept_redirects
@@ -76,4 +78,4 @@ iptables -I FORWARD -i ${WAN} -o ${IFACE} -j ACCEPT
 
 iptables -t nat -A POSTROUTING -s 10.127.0.0/24 -o ${WAN} -j MASQUERADE
 
-/bin/ip route add 10.127.0.0/24 dev wg0
+#/bin/ip route add 10.127.0.0/24 dev wg0

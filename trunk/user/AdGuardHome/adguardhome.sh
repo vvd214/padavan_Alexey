@@ -15,6 +15,102 @@ WORK_DIR="/tmp/agh"
 DIR_CONF="/etc/storage/AdGuardHome.yaml"
 LOG_FILE="syslog"
 
+count=0
+while :
+do
+	ping -c 1 -W 1 -q 8.8.8.8 1>/dev/null 2>&1
+	if [ "$?" == "0" ]; then
+		break
+	fi
+	sleep 5
+	count=$((count+1))
+	if [ $count -gt 18 ]; then
+		break
+	fi
+done
+
+getconfig(){
+if [ ! -f "$DIR_CONF" ] || [ ! -s "$DIR_CONF" ] ; then
+	cat > "$DIR_CONF" <<-\EEE
+bind_host: 0.0.0.0
+bind_port: 3000
+auth_name: admin
+auth_pass: admin
+language: 
+rlimit_nofile: 0
+dns:
+  bind_host: 0.0.0.0
+  port: 53
+  protection_enabled: true
+  filtering_enabled: true
+  filters_update_interval: 24
+  blocking_mode: nxdomain
+  blocked_response_ttl: 10
+  querylog_enabled: false
+  ratelimit: 20
+  ratelimit_whitelist: []
+  refuse_any: true
+  bootstrap_dns:
+  - 8.8.8.8
+  - 8.8.4.4
+  - https://dns.google/dns-query
+  - tls://dns.google
+  all_servers: true
+  allowed_clients: []
+  disallowed_clients: []
+  blocked_hosts: []
+  parental_sensitivity: 0
+  parental_enabled: false
+  safesearch_enabled: false
+  safebrowsing_enabled: false
+  resolveraddress: ""
+  upstream_dns:
+  - 8.8.8.8
+  - 8.8.4.4
+tls:
+  enabled: false
+  server_name: ""
+  force_https: false
+  port_https: 443
+  port_dns_over_tls: 853
+  certificate_chain: ""
+  private_key: ""
+filters:
+- enabled: true
+  url: https://adguardteam.github.io/AdGuardSDNSFilter/Filters/filter.txt
+  name: AdGuard DNS filter
+  id: 1
+- enabled: true
+  url: https://adaway.org/hosts.txt
+  name: AdAway Default Blocklist
+  id: 2
+- enabled: true
+  url: https://abpvn.com/android/abpvn.txt
+  name: ABVN
+  id: 1643333073
+- enabled: false
+  url: https://raw.githubusercontent.com/crazy-max/WindowsSpyBlocker/master/data/hosts/spy.txt
+  name: WindowsSpyBlocker - Hosts spy rules
+  id: 1643333518
+user_rules: []
+dhcp:
+  enabled: false
+  interface_name: ""
+  gateway_ip: ""
+  subnet_mask: ""
+  range_start: ""
+  range_end: ""
+  lease_duration: 86400
+  icmp_timeout_msec: 1000
+clients: []
+log_file: ""
+verbose: false
+schema_version: 3
+EEE
+	chmod 755 "$DIR_CONF"
+fi
+}
+
 func_start()
 {
 	if [ -n "`pidof AdGuardHome`" ] ; then
@@ -35,7 +131,7 @@ func_start()
 				echo "port=0" >> /etc/storage/dnsmasq/dnsmasq.conf
 			fi
 		fi
-		killall dnsmasq
+		/sbin/restart_dhcpd
 	fi
 
 	if [ ! -d "${WORK_DIR}" ] ; then
@@ -95,7 +191,7 @@ func_stop()
 		if grep -q "^port=0$" /etc/storage/dnsmasq/dnsmasq.conf; then
 			sed -i '/port=0/s/^/#/g' /etc/storage/dnsmasq/dnsmasq.conf
 		fi
-		killall dnsmasq
+		/sbin/restart_dhcpd
 	fi
 }
 

@@ -33,7 +33,6 @@ getconfig(){
 if [ ! -f "$DIR_CONF" ] || [ ! -s "$DIR_CONF" ] ; then
 	cat > "$DIR_CONF" <<-\EEE
 bind_host: 0.0.0.0
-bind_port: 3000
 auth_name: admin
 auth_pass: admin
 language: 

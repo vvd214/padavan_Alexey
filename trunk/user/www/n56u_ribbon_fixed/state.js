@@ -421,7 +421,8 @@ if (found_app_filebrowser()) {
 
 //Level 2 Menu
 menuL2_title = new Array("", "<#menu5_11#>", "<#menu5_12#>", "<#menu5_2#>", "<#menu5_3#>", "<#menu5_5#>", "<#menu5_4#>", "<#menu5_6#>", "<#menu5_10#>", "<#menu5_9#>", "<#menu5_7#>");
-menuL2_link = new Array("", tablink[0][1], tablink[1][1], tablink[2][1], tablink[3][1], tablink[4][1], tablink[5][1], tablink[6][1], tablink[7][1], tablink[8][1], tablink[9][1]);
+menuL2_link  = new Array("", tablink[0][1], tablink[1][1], tablink[2][1], tablink[3][1], tablink[4][1], tablink[5][1], tablink[6][1], tablink[7][1], support_2g_radio() ? tablink[8][1] : "Main_EStatus_Content.asp", tablink[9][1]);
+
 if (found_app_agh()) {
 	menuL2_title.push("<#menu5_13#>");
 	menuL2_link.push(tablink[10][1]);
@@ -499,6 +500,8 @@ function show_menu(L1, L2, L3) {
 		menuL2_title[1] = "";
 		tabtitle[0].splice(1,6);
 		tablink[0].splice(1,6);
+		tabtitle[8].splice(1,1);
+		tablink[8].splice(1,1);
 	}
 
 	if (!support_5g_radio()) {
@@ -506,8 +509,9 @@ function show_menu(L1, L2, L3) {
 		menuL2_title[2] = "";
 		tabtitle[1].splice(1, 6);
 		tablink[1].splice(1, 6);
-		tabtitle[8].splice(2, 1);
-		tablink[8].splice(2, 1);
+		var idx = support_2g_radio() ? 2 : 1;
+		tabtitle[8].splice(idx,1);
+		tablink[8].splice(idx,1);
 	}
 
 	if (!support_storage()) {

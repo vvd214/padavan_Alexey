@@ -1,28 +1,26 @@
 THISDIR := $(shell pwd)
-VERSION := 0.0.20201118
-SRC_NAME=wireguard-git
+SRC_NAME = wireguard-tools-1.0.20200827
+SRC_URL = https://git.zx2c4.com/wireguard-tools/snapshot/wireguard-tools-1.0.20200827.tar.xz
 
-CFLAGS +=$(COPT) -ffunction-sections -fdata-sections -fvisibility=hidden
-LDFLAGS += -Wl,--gc-sections
-#LDFLAGS += -Wl,--gc-sections,-rpath-link,$(STAGEDIR)/lib -lcrypto -lssl
+all: download_test extract_test
+	$(MAKE) -C $(SRC_NAME)/src WITH_BASHCOMPLETION=no WITH_WGQUICK=no WITH_SYSTEMDUNITS=no wg
 
-all: config_test
-	$(MAKE) -j$(HOST_NCPU) -C $(SRC_NAME)
+download_test:
+	( if [ ! -f $(SRC_NAME).tar.xz ]; then \
+		wget -t5 --timeout=20 --no-check-certificate -O $(SRC_NAME).tar.xz $(SRC_URL); \
+	fi )
 
-config_test:
-	( if [ -f ./config_done ]; then \
-		echo "the same configuration"; \
-	else \
-		touch config_done; \
+extract_test:
+	( if [ ! -d $(SRC_NAME) ]; then \
+		tar -xf $(SRC_NAME).tar.xz; \
 	fi )
 
 clean:
-	if [ -f $(SRC_NAME)/Makefile ] ; then \
-		$(MAKE) -C $(SRC_NAME) clean ; \
-	fi ; \
-	rm config_done
+	if [ -f $(SRC_NAME)/src/Makefile ] ; then \
+		$(MAKE) -C $(SRC_NAME)/src clean ; \
+	fi
 
 romfs:
-	$(ROMFSINST) $(SRC_NAME)/wg /usr/sbin/wg
-	$(ROMFSINST) -S -p +x $(THISDIR)/$(BIN_PREFIX)-$(VERSION) /usr/bin/wireguard
+	$(ROMFSINST) -p +x $(THISDIR)/$(SRC_NAME)/src/wg /usr/bin/wg
+	$(ROMFSINST) -S -p +x $(THISDIR)/wireguard-go-mipsle-0.0.20201118 /usr/bin/wireguard
 	$(ROMFSINST) -p +x $(THISDIR)/wireguard.sh /usr/bin/wireguard.sh

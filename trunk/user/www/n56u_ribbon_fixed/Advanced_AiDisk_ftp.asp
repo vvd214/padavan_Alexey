@@ -266,9 +266,9 @@ function changeActionButton(selectedObj, type, action, flag){
 				return;
 	
 	if(typeof(flag) == "number")
-		selectedObj.src = '/images/AiDisk/'+type+action+'_'+flag+'.gif';
+		selectedObj.src = '/images/Main/'+type+action+'_'+flag+'.gif';
 	else
-		selectedObj.src = '/images/AiDisk/'+type+action+'.gif';
+		selectedObj.src = '/images/Main/'+type+action+'.gif';
 }
 
 function resultOfCreateAccount(){
@@ -534,16 +534,16 @@ function unload_body(){
                                             <tr>
                                                 <!-- The action buttons of accounts. -->
                                                 <td width="35%" style="vertical-align: top;">
-                                                    <img id="createAccountBtn" src="/images/AiDisk/UserAdd.gif" hspace="1" title="<#AddAccountTitle#>">
-                                                    <img id="deleteAccountBtn" src="/images/AiDisk/UserDel.gif" hspace="1" title="<#DelAccountTitle#>">
-                                                    <img id="modifyAccountBtn" src="/images/AiDisk/UserMod.gif" hspace="1" title="<#ModAccountTitle#>">
+                                                    <img id="createAccountBtn" src="/images/Main/UserAdd.gif" hspace="1" title="<#AddAccountTitle#>">
+                                                    <img id="deleteAccountBtn" src="/images/Main/UserDel.gif" hspace="1" title="<#DelAccountTitle#>">
+                                                    <img id="modifyAccountBtn" src="/images/Main/UserMod.gif" hspace="1" title="<#ModAccountTitle#>">
                                                 </td>
 
                                                 <!-- The action buttons of folders. -->
                                                 <td>
-                                                    <img id="createFolderBtn" src="/images/AiDisk/FolderAdd.gif" hspace="1" title="<#AddFolderTitle#>">
-                                                    <img id="deleteFolderBtn" src="/images/AiDisk/FolderDel.gif" hspace="1" title="<#DelFolderTitle#>">
-                                                    <img id="modifyFolderBtn" src="/images/AiDisk/FolderMod.gif" hspace="1" title="<#ModFolderTitle#>">
+                                                    <img id="createFolderBtn" src="/images/Main/FolderAdd.gif" hspace="1" title="<#AddFolderTitle#>">
+                                                    <img id="deleteFolderBtn" src="/images/Main/FolderDel.gif" hspace="1" title="<#DelFolderTitle#>">
+                                                    <img id="modifyFolderBtn" src="/images/Main/FolderMod.gif" hspace="1" title="<#ModFolderTitle#>">
                                                 </td>
                                             </tr>
                                         </table>

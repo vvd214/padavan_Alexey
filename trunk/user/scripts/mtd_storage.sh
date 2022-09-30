@@ -242,6 +242,21 @@ func_fill()
 #modprobe ip_set_list_set
 #modprobe xt_set
 
+#drop caches
+sync && echo 3 > /proc/sys/vm/drop_caches
+# Roaming assistant for mt76xx WiFi
+#iwpriv ra0 set KickStaRssiLow=-85
+#iwpriv ra0 set AssocReqRssiThres=-80
+#iwpriv rai0 set KickStaRssiLow=-85
+#iwpriv rai0 set AssocReqRssiThres=-80
+
+#wing <HOST:443> <PASS>
+#wing 192.168.1.9:1080
+#ipset add gfwlist 8.8.4.4
+
+# Mount SATA disk
+#mdev -s
+
 EOF
 		chmod 755 "$script_started"
 	fi

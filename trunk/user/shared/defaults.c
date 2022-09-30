@@ -380,7 +380,7 @@ struct nvram_pair router_defaults[] = {
 	{ "dlna_disc", "895" },
 	{ "dlna_root", "0" },
 	{ "dlna_sort", "0" },
-	{ "dlna_src1", "/media/AiDisk_a1" },
+	{ "dlna_src1", "/media/Main" },
 	{ "dlna_src2", "" },
 	{ "dlna_src3", "" },
 	{ "dlna_rescan", "0"},

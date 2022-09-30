@@ -795,9 +795,9 @@ void update_minidlna_conf(const char *link_path, const char *conf_path)
 	FILE *fp;
 	int dlna_disc, dlna_root;
 	char *computer_name;
-	char *dlna_src1 = "V,/media/AiDisk_a1/Video";
-	char *dlna_src2 = "P,/media/AiDisk_a1/Photo";
-	char *dlna_src3 = "A,/media/AiDisk_a1/Audio";
+	char *dlna_src1 = "V,/media/Main/Video";
+	char *dlna_src2 = "P,/media/Main/Photo";
+	char *dlna_src3 = "A,/media/Main/Audio";
 
 	fp = fopen(conf_path, "w");
 	if (!fp)

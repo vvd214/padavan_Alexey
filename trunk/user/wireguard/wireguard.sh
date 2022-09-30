@@ -57,6 +57,7 @@ fi
 !(ip link show ${IFACE} 2>/dev/null) && \
                (ip link add dev ${IFACE} type wireguard) && \
                (ip addr add ${ADDR}/${MASK} dev ${IFACE}) && \
+               (sleep 1) && \
                (wg setconf ${IFACE} ${cfg_file}) && \
                (sleep 1) && \
                (ip link set ${IFACE} up) && \
@@ -78,4 +79,4 @@ iptables -I FORWARD -i ${WAN} -o ${IFACE} -j ACCEPT
 
 iptables -t nat -A POSTROUTING -s 10.127.0.0/24 -o ${WAN} -j MASQUERADE
 
-#/bin/ip route add 10.127.0.0/24 dev wg0
+/bin/ip route add 10.127.0.0/24 dev wg0

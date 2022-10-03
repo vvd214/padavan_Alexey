@@ -17,8 +17,9 @@ cfg_file="/etc/storage/wireguard.conf"
 
 if [ ! -f "$cfg_file" ] || [ ! -s "$cfg_file" ] ; then
 	cat > "$cfg_file" <<-\EEE
-WAN=ppp0
+WAN="ppp0"
 ADDR="10.127.0.1" # Server (our) address in WireGuard network
+SUBNET="10.127.0.0/24"
 IFACE="wg0"
 MASK="24" # WireGuard network mask
 PRIVATE_KEY="iBgjJQutq3JUpixs8Su25YS4Jd5SDlYLxgaJAvy4rm4=" # Server (our) private key
@@ -84,9 +85,10 @@ fi
     (sleep 1) && \
     (ip link set ${IFACE} up)
 
+ifconfig ${IFACE} up
+
   echo "done"
   rm -f "$CFG"
-
 
 echo 1 > /proc/sys/net/ipv4/ip_forward
 echo 0 > /proc/sys/net/ipv4/conf/all/accept_redirects
@@ -101,6 +103,6 @@ iptables -I FORWARD -i br0 -o ${IFACE} -j ACCEPT
 iptables -I FORWARD -i ${IFACE} -o ${WAN} -j ACCEPT
 iptables -I FORWARD -i ${WAN} -o ${IFACE} -j ACCEPT
 
-iptables -t nat -A POSTROUTING -s 10.127.0.0/24 -o ${WAN} -j MASQUERADE
+iptables -t nat -A POSTROUTING -s ${SUBNET} -o ${WAN} -j MASQUERADE
 
-/bin/ip route add 10.127.0.0/24 dev ${IFACE}
+/bin/ip route add ${SUBNET} dev ${IFACE}

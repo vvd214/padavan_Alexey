@@ -17,6 +17,7 @@ cfg_file="/etc/storage/wireguard.conf"
 
 if [ ! -f "$cfg_file" ] || [ ! -s "$cfg_file" ] ; then
 	cat > "$cfg_file" <<-\EEE
+WAN=ppp0
 ADDR="10.127.0.1" # Server (our) address in WireGuard network
 IFACE="wg0"
 MASK="24" # WireGuard network mask

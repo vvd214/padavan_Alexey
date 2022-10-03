@@ -12,18 +12,8 @@ do
 		break
 	fi
 done
-IFACE="wg0"
-ADDR="10.127.0.1"
-MASK="24"
-if [ "`nvram get wan_proto`" = "pppoe" ]; then
-  WAN="ppp0"
-else
-  WAN="`nvram get wan_ifname`"
-fi
-
 
 cfg_file="/etc/storage/wireguard.conf"
-
 
 if [ ! -f "$cfg_file" ] || [ ! -s "$cfg_file" ] ; then
 	cat > "$cfg_file" <<-\EEE

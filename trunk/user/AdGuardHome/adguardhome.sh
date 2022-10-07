@@ -145,7 +145,7 @@ func_start()
 	adg_port=`nvram get adguard_port`
 	lan_ipaddr=`nvram get lan_ipaddr`
 
-	start-stop-daemon -S -b -N $SVC_PRIORITY$svc_user -x $SVC_PATH -- -w "$WORK_DIR" -c "$DIR_CONF" -h "$lan_ipaddr" -p "$adg_port" --no-check-update
+	start-stop-daemon -S -b -N $SVC_PRIORITY$svc_user -x $SVC_PATH -- -w "$WORK_DIR" -c "$DIR_CONF" -p "$adg_port" --no-check-update
 	
 	if [ $? -eq 0 ] ; then
 		echo "[  OK  ]"
